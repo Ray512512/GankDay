@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="md_grey_400">#bdbdbd</color>
+    <string name="action_settings">Settings</string>
+    <color name="color_a">#4daddf</color>
+    <color name="color_b">#ec4a5f</color>
+    <color name="color_c">#315e7d</color>
+    <color name="color_d">#e64a19</color>
+    <color name="color_e">#5b514f</color>
+    <color name="md_lime_500">#cddc39</color>
+    <color name="md_red_500">#F44336</color>
+    <color name="md_green_600">#0a8f08</color>
+    <color name="md_grey_900">#212121</color>
+    <color name="md_grey_500">#9e9e9e</color>
+    <color name="textThird">#9E9E9E</color>
+
+</resources>
