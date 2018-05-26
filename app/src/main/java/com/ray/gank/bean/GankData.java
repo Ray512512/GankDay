@@ -10,10 +10,6 @@ import java.util.List;
 
 public class GankData {
 
-    public Result results;
-    public List<String> category;
-
-    public class Result {
         @SerializedName("Android")
         public List<Gank> androidList;
         @SerializedName("休息视频")
@@ -28,5 +24,6 @@ public class GankData {
         public List<Gank> blideList;
         @SerializedName("App")
         public List<Gank> appList;
-    }
+        @SerializedName("前端")
+        public List<Gank> h5List;
 }

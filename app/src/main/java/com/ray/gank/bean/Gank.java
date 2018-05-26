@@ -34,6 +34,15 @@ public class Gank {
     private boolean used;
     private String who;
     private List<String> images;
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public Date getCreatedAt() {
         return createdAt;

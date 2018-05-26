@@ -1,5 +1,6 @@
 package com.ray.gank;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -20,8 +21,12 @@ import android.widget.ImageView;
 
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
+import com.ray.gank.bean.Gank;
 import com.ray.gank.bean.GankType;
+import com.ray.gank.mvp.presenter.MainPresenter;
+import com.ray.gank.mvp.view.MainIView;
 import com.ray.gank.ui.activity.MeiZhiActivity;
+import com.ray.gank.ui.activity.WebActivity;
 import com.ray.gank.ui.adapter.ViewPagerAdapter;
 import com.ray.gank.ui.fragment.GankDataFragment;
 import com.ray.library.base.ui.BaseActivity;
@@ -34,7 +39,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainDrawerActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainDrawerActivity extends BaseActivity<MainPresenter> implements NavigationView.OnNavigationItemSelectedListener,MainIView {
     private static final String TAG = "MainDrawerActivity";
     @BindView(R.id.toolbar_layout_main)
     CollapsingToolbarLayout mCollapsingToolbarLayout;
@@ -54,6 +59,7 @@ public class MainDrawerActivity extends BaseActivity implements NavigationView.O
     BannerLayout head_banner;
 
     private AppBarLayout.OnOffsetChangedListener mOnOffsetChangedListener;
+    private ArrayList<Gank> headImage=new ArrayList<>(); //头部轮播数据
 
     @Override
     protected int inflateContentView() {
@@ -62,7 +68,7 @@ public class MainDrawerActivity extends BaseActivity implements NavigationView.O
 
     @Override
     protected void initPresenter() {
-
+        mPresenter=new MainPresenter(this,this);
     }
 
     @Override
@@ -101,7 +107,7 @@ public class MainDrawerActivity extends BaseActivity implements NavigationView.O
         adapter.addFragment(GankDataFragment.newInstance(4), GankType.TYPE_APP);
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
-
+        mViewPager.setOffscreenPageLimit(adapter.getCount());
         final int colors[] = {R.color.colorPrimary, R.color.color_a, R.color.color_b,
                 R.color.color_c, R.color.color_d, R.color.color_e};
 
@@ -124,7 +130,7 @@ public class MainDrawerActivity extends BaseActivity implements NavigationView.O
     }
     @Override
     protected void initEvents() {
-
+        mPresenter.getData();
     }
 
     private void setAppBarLayout() {
@@ -157,6 +163,33 @@ public class MainDrawerActivity extends BaseActivity implements NavigationView.O
         };
 
         mAppBarLayout.addOnOffsetChangedListener(mOnOffsetChangedListener);
+        head_banner.setOnBannerItemClickListener(position -> {
+            try {
+                Intent intent = WebActivity.newIntent(mContext, headImage.get(position).getUrl(), headImage.get(position).getDesc());
+                startActivity(intent);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void getLatelyData(ArrayList<Gank> gankData) {
+        headImage=gankData;
+        head_banner.setViewUrls(getImages(gankData));
+    }
+
+    private ArrayList<String > getImages(ArrayList<Gank> gankData){
+        ArrayList<String>  r=new ArrayList<>();
+        for (Gank g:gankData) {
+            r.add(g.getImage());
+        }
+        return r;
+    }
+
+    @Override
+    public void getDataError() {
+
     }
 
 
@@ -199,7 +232,7 @@ public class MainDrawerActivity extends BaseActivity implements NavigationView.O
 
     @Subscribe(tags = {@Tag(Event.TAG.SHOW_HEAD)})
     public void showHeadBanner(ArrayList<String> headImage) {
-        if(headImage!=null)
-        head_banner.setViewUrls(headImage);
+//        if(headImage!=null)
+//        head_banner.setViewUrls(headImage);
     }
 }

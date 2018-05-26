@@ -28,7 +28,6 @@
                 android:id="@+id/head_banner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:imageHeight="match_parent"
                 app:indicatorMargin="40dp"
                 app:indicatorPosition="centerBottom"
                 app:indicatorShape="oval"
@@ -44,7 +43,7 @@
                 app:unSelectedIndicatorColor="@color/white"
                 app:unSelectedIndicatorHeight="8dp"
                 app:unSelectedIndicatorWidth="8dp" />
-            <!--<ImageView
+           <!-- <ImageView
                 android:id="@+id/iv_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

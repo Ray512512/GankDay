@@ -27,8 +27,13 @@ public class GlideUtils {
         }
         return path;
     }
+
+    public static String addImageEnd(String path){
+        if (TextUtils.isEmpty(path)) return "";
+        return path+"?imageView2/0/w/1080";
+    }
     public static void load(Context context, String url, ImageView img){
-        Glide.with(context).load(addImageHead(url)).placeholder(R.mipmap.placeholder_normal).into(img);
+        Glide.with(context).load(url).placeholder(R.mipmap.placeholder_normal).into(img);
     }
 
     public static void load(Context context, int url, ImageView img){
@@ -36,12 +41,12 @@ public class GlideUtils {
     }
 
     public static void load(Context context, String url, ImageView img, int defaultImg){
-        Glide.with(context).load(addImageHead(url)).placeholder(defaultImg).into(img);
+        Glide.with(context).load(addImageEnd(url)).placeholder(defaultImg).into(img);
     }
 
     public static void load(Context context, Object url, ImageView img, int defaultImg){
         if(url instanceof String){
-            url=addImageHead((String) url);
+            url=addImageEnd((String) url);
         }
         Glide.with(context).load(url).placeholder(defaultImg).into(img);
     }

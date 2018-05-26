@@ -26,12 +26,12 @@ public interface ApiService {
     Observable<BaseModel<ArrayList<VedioData>>> getVedioData(@Path("page") int page);
 
     @GET("day/{year}/{month}/{day}")
-    Observable<GankData> getGankData(@Path("year") int year, @Path("month") int month, @Path("day") int day);
+    Observable<BaseModel<GankData>> getGankData(@Path("year") String year, @Path("month") String month, @Path("day") String day);
 
     @GET("data/{type}/"+ Const.meizhiSize+"/{page}")
     Observable<BaseModel<ArrayList<Gank>>> getGankTypeData(@Path("type") String type, @Path("page") int page);
 
-    @GET("data/history")
+    @GET("day/history")
     Observable<BaseModel<ArrayList<String>>> getHistoryDay();
 
 }
