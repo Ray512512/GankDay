@@ -21,9 +21,9 @@ package com.ray.gank.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -44,6 +44,7 @@ import com.ray.library.utils.T;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class WebActivity extends ToolbarActivity {
@@ -57,6 +58,8 @@ public class WebActivity extends ToolbarActivity {
     WebView mWebView;
     @BindView(R.id.title)
     TextSwitcher mTextSwitcher;
+    @BindView(R.id.fab_like)
+    FloatingActionButton fab_like;
 
     private String mUrl, mTitle;
 
@@ -117,8 +120,8 @@ public class WebActivity extends ToolbarActivity {
         mTextSwitcher.setInAnimation(this, android.R.anim.fade_in);
         mTextSwitcher.setOutAnimation(this, android.R.anim.fade_out);
         if (mTitle != null) setTitle(mTitle);
-    }
 
+    }
 
 
     @Override
@@ -204,6 +207,10 @@ public class WebActivity extends ToolbarActivity {
         if (mWebView != null) mWebView.onResume();
     }
 
+    @OnClick(R.id.fab_like)
+    public void onViewClicked() {
+    }
+
 
     private class ChromeClient extends WebChromeClient {
 
@@ -226,15 +233,16 @@ public class WebActivity extends ToolbarActivity {
         }
     }
 
-    private boolean isLoadUrl=false;
+    private boolean isLoadUrl = false;
+
     private class LoveClient extends WebViewClient {
 
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            Log.v("LoveClient1",url);
-            if(url.startsWith("http:") || url.startsWith("https:") ) {
+            Log.v("LoveClient1", url);
+            if (url.startsWith("http:") || url.startsWith("https:")) {
                 view.loadUrl(url);
                 return false;
-            }else{
+            } else {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
                 return true;

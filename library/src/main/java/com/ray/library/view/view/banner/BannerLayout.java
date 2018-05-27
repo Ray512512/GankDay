@@ -1,5 +1,6 @@
 package com.ray.library.view.view.banner;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -25,13 +26,13 @@ import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.ray.library.R;
+import com.ray.library.utils.AnimaUtil;
 import com.ray.library.utils.GlideUtils;
 import com.ray.library.utils.SystemUtil;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -72,7 +73,7 @@ public class BannerLayout extends RelativeLayout {
     private int imageHeight = -1;
 
     private enum Shape {
-        rect, oval
+        rect, oval, empty
     }
 
     private enum Position {
@@ -131,6 +132,8 @@ public class BannerLayout extends RelativeLayout {
         unSelectedIndicatorColor = array.getColor(R.styleable.BannerLayoutStyle_unSelectedIndicatorColor, unSelectedIndicatorColor);
 
         int shape = array.getInt(R.styleable.BannerLayoutStyle_indicatorShape, Shape.oval.ordinal());
+        if(shape==-1)indicatorShape=Shape.empty;
+        else
         for (Shape shape1 : Shape.values()) {
             if (shape1.ordinal() == shape) {
                 indicatorShape = shape1;
@@ -156,6 +159,9 @@ public class BannerLayout extends RelativeLayout {
         imageHeight = (int) array.getDimension(R.styleable.BannerLayoutStyle_imageHeight, -1);
         array.recycle();
 
+        if(indicatorShape==Shape.empty){
+            return;
+        }
         //绘制未选中状态图形
         LayerDrawable unSelectedLayerDrawable;
         LayerDrawable selectedLayerDrawable;
@@ -222,18 +228,22 @@ public class BannerLayout extends RelativeLayout {
     }
 
 
+    @SuppressLint("SetTextI18n")
     public View getContentView(HashMap<String ,String > res, final int position){
         View v= LayoutInflater.from(getContext()).inflate(R.layout.image_corner,null);
         ImageView imageView = (ImageView) v.findViewById(R.id.image);
         TextView text = (TextView) v.findViewById(R.id.banner_text);
+        TextView page = (TextView) v.findViewById(R.id.banner_page);
         for (String  key:res.keySet()){
             if(!TextUtils.isEmpty(key)){
                 text.setText(key);
+                page.setText(position+1+"/"+itemCount);
                 GlideUtils.load(getContext(),res.get(key),imageView,R.mipmap.placeholder_big);
+                this.contentTitles .add(text);
                 break;
             }
         }
-        imageView.setOnClickListener(v1 -> {
+        v.setOnClickListener(v1 -> {
             if (onBannerItemClickListener != null) {
                 onBannerItemClickListener.onItemClick(position);
             }
@@ -324,6 +334,7 @@ public class BannerLayout extends RelativeLayout {
         return imageView;
     }
 
+    private List<View> contentTitles =new ArrayList<>();
     //添加任意View视图
     public void setViews(final List<View> views) {
         //初始化pager
@@ -366,7 +377,7 @@ public class BannerLayout extends RelativeLayout {
         params.setMargins(indicatorMargin, indicatorMargin, indicatorMargin, indicatorMargin);
         //添加指示器容器布局到SliderLayout
         //初始化指示器，并添加到指示器容器布局
-        if (itemCount > 1){
+        if (itemCount > 1&&indicatorShape!=Shape.empty){
             addView(indicatorContainer, params);
             for (int i = 0; i < itemCount; i++) {
                 ImageView indicator = new ImageView(getContext());
@@ -384,6 +395,7 @@ public class BannerLayout extends RelativeLayout {
         int targetItemPosition = Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % itemCount;
         pager.setCurrentItem(targetItemPosition);
         switchIndicator(targetItemPosition % itemCount);
+        animTitle(targetItemPosition % itemCount);
         pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -391,87 +403,13 @@ public class BannerLayout extends RelativeLayout {
                     bannerListener.onPageSelected(position % itemCount);
                 }
                 switchIndicator(position % itemCount);
+                animTitle(position % itemCount);
             }
         });
         startAutoPlay();
 
     }
 
-
-    //Arc Shape
-  /*
-
-    private int mWidth;
-    private int mHeight;
-    private int mArcHeight=SystemUtil.dip2px(getContext(),10);
-
-    private enum ArcShape {
-        inSide, outSide
-    }
-    private ArcShape arcShape = ArcShape.outSide;
-    private Path createClipPath() {
-        final Path path = new Path();
-      *//*  path.moveTo(0, 0);
-        path.lineTo(0, mHeight);
-        path.quadTo(mWidth / 2, mHeight - 2 * mArcHeight, mWidth, mHeight);
-        path.lineTo(mWidth, 0);
-        path.close();
-*//*
-        path.moveTo(0, 0);
-        path.lineTo(0, mHeight - mArcHeight);
-        path.quadTo(mWidth / 2, mHeight + mArcHeight, mWidth, mHeight - mArcHeight);
-        path.lineTo(mWidth, 0);
-        path.close();
-        return path;
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-        if (changed) {
-            calculateLayout();
-        }
-    }
-
-    Path clipPath = new Path();
-    *//**
-     *calculate layout
-     *//*
-    private void calculateLayout() {
-        mHeight = getMeasuredHeight();
-        mWidth = getMeasuredWidth();
-        if (mWidth > 0 && mHeight > 0) {
-
-            clipPath = createClipPath();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && arcShape != ArcShape.inSide) {
-                setOutlineProvider(new ViewOutlineProvider() {
-                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                    @Override
-                    public void getOutline(View view, Outline outline) {
-                        outline.setConvexPath(clipPath);
-                    }
-                });
-            }
-        }
-    }
-
-
-    @Override
-    protected void dispatchDraw(Canvas canvas) {
-        if (mArcHeight > 0) {
-            Paint paint = new Paint();
-            paint.setAntiAlias(true);
-            paint.setColor(Color.WHITE);
-            int saveCount = canvas.saveLayer(0, 0, getWidth(), getHeight(), null, Canvas.ALL_SAVE_FLAG);
-            super.dispatchDraw(canvas);
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY));
-            canvas.drawPath(clipPath, paint);
-            canvas.restoreToCount(saveCount);
-            paint.setXfermode(null);
-        } else {
-            super.dispatchDraw(canvas);
-        }
-    }*/
      public void setSliderTransformDuration(int duration) {
          try {
              Field mScroller = ViewPager.class.getDeclaredField("mScroller");
@@ -540,6 +478,15 @@ public class BannerLayout extends RelativeLayout {
         }
     }
 
+    private void animTitle(int currentPosition) {
+        for (int i = 0; i < contentTitles.size(); i++) {
+            View view= contentTitles.get(i).findViewById(R.id.banner_text);
+            if(i==currentPosition){
+                AnimaUtil.TranslateShowViewSelfYup(view);
+                break;
+            }
+        }
+    }
 
     public void setOnBannerItemClickListener(OnBannerItemClickListener onBannerItemClickListener) {
         this.onBannerItemClickListener = onBannerItemClickListener;

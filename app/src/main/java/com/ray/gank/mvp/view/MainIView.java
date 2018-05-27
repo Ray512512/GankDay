@@ -12,5 +12,5 @@ import java.util.ArrayList;
  */
 public interface MainIView extends BaseIView {
     void getLatelyData( ArrayList<Gank>  gankData);
-    void getDataError();
+    void getDataError(String msg);
 }

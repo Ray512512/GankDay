@@ -1,24 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
 
-    <include layout="@layout/view_toolbar_with_title_view"/>
-
-    <com.daimajia.numberprogressbar.NumberProgressBar
-        style="@style/NumberProgressBar_Funny_Orange"
-        android:id="@+id/progressbar"
+   <!-- <LinearLayout
         android:layout_width="match_parent"
-        app:progress_reached_bar_height="2dp"
-        app:progress_text_size="0sp"
-        app:progress_text_visibility="invisible"
-        app:progress_unreached_bar_height="2dp"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">-->
+    <include layout="@layout/tool_bar"/>
 
-    <WebView
+
+    <!--</LinearLayout>-->
+    <com.ray.gank.view.NestedWebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <com.daimajia.numberprogressbar.NumberProgressBar
+            style="@style/NumberProgressBar_Funny_Orange"
+            android:id="@+id/progressbar"
+            android:layout_width="match_parent"
+            app:progress_reached_bar_height="2dp"
+            app:progress_text_size="0sp"
+            app:progress_text_visibility="invisible"
+            app:progress_unreached_bar_height="2dp"/>
+    </com.ray.gank.view.NestedWebView>
 
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_like"
+        app:fabSize="normal"
+        app:layout_behavior="@string/fab_scrolling_behavior_fade"/>
+
+</android.support.design.widget.CoordinatorLayout>

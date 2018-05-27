@@ -26,6 +26,7 @@
         <attr name="indicatorShape" format="enum">
             <enum name="rect" value="0" />
             <enum name="oval" value="1" />
+            <enum name="empty" value="-1" />
         </attr>
 
         <attr name="selectedIndicatorHeight" format="dimension|reference" />

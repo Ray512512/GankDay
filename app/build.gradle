@@ -30,6 +30,11 @@ android {
     }
 }
 
+greendao {
+    schemaVersion 2
+    daoPackage 'com.ray.gen'
+    targetGenDir 'src/main/java'
+}
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -48,6 +53,6 @@ dependencies {
     compile 'tyrant:heartlayout:1.0.1'
     compile 'com.jude:easyrecyclerview:4.3.4'
     compile 'com.daimajia.numberprogressbar:library:1.4@aar'
-
+//    compile 'org.greenrobot:greendao:3.2.2'
 
 }

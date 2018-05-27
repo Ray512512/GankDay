@@ -3,7 +3,7 @@ package com.ray.gank;
 import com.ray.library.BaseApplication;
 import com.ray.library.common.CrashHandler;
 import com.ray.library.utils.SystemUtil;
-import com.ray.library.greendao.MyDaoMaster;
+import com.ray.gank.greendao.MyDaoMaster;
 import com.ray.gank.common.Const;
 
 /**

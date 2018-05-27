@@ -1,13 +1,19 @@
 package com.ray.gank.bean;
 
+import org.greenrobot.greendao.annotation.Convert;
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Property;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by Ray on 2018/5/24.
  */
-
+@Entity
 public class Gank {
 
 
@@ -22,19 +28,59 @@ public class Gank {
      * used : true
      * who : lijinshanmx
      */
-
+    @Id
     private String _id;
+    @Property
     public Date createdAt;
+    @Property
     private String desc;
+    @Property
     private String vedioStr;
+    @Property
     public Date publishedAt;
+    @Property
     private String source;
+    @Property
     private String type;
+    @Property
     private String url;
+    @Property
     private boolean used;
+    @Property
     private String who;
+    @Convert(columnType = String.class, converter = StringConverter.class)
     private List<String> images;
+    @Property
     private String image;
+    @Property
+    private int localType;
+    @Property
+    private boolean isLike;
+
+    @Generated(hash = 213065472)
+    public Gank(String _id, Date createdAt, String desc, String vedioStr,
+            Date publishedAt, String source, String type, String url, boolean used,
+            String who, List<String> images, String image, int localType,
+            boolean isLike) {
+        this._id = _id;
+        this.createdAt = createdAt;
+        this.desc = desc;
+        this.vedioStr = vedioStr;
+        this.publishedAt = publishedAt;
+        this.source = source;
+        this.type = type;
+        this.url = url;
+        this.used = used;
+        this.who = who;
+        this.images = images;
+        this.image = image;
+        this.localType = localType;
+        this.isLike = isLike;
+    }
+
+    @Generated(hash = 116302247)
+    public Gank() {
+    }
 
     public String getImage() {
         return image;
@@ -60,11 +106,11 @@ public class Gank {
         this.publishedAt = publishedAt;
     }
 
-    public List<String> getImages() {
+    public ArrayList<String> getImages() {
         if (images == null) {
             return new ArrayList<>();
-        }
-        return images;
+        }else
+        return new ArrayList<>(images);
     }
 
     public void setImages(List<String> images) {
@@ -135,5 +181,25 @@ public class Gank {
 
     public void setWho(String who) {
         this.who = who;
+    }
+
+    public boolean getUsed() {
+        return this.used;
+    }
+
+    public int getLocalType() {
+        return this.localType;
+    }
+
+    public void setLocalType(int localType) {
+        this.localType = localType;
+    }
+
+    public boolean getIsLike() {
+        return this.isLike;
+    }
+
+    public void setIsLike(boolean isLike) {
+        this.isLike = isLike;
     }
 }

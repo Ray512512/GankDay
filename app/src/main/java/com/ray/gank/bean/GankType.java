@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class GankType {
 
     public static final HashMap<Integer, String> index2Type = new HashMap<>();
+    public static final HashMap<Integer, Integer> localType = new HashMap<>();
 
     public static final String TYPE_ALL = "all";
     public static final String TYPE_ANDROID = "Android";
@@ -17,6 +18,10 @@ public class GankType {
     public static final String TYPE_FULI = "福利";
     public static final String TYPE_VIDEO = "休息视频";
 
+    public static final int LOCAL_HEAD=1;//头部banner数据
+    public static final int LOCAL_NEWEST=2;//最新数据
+    public static final int LOCAL_MEIZHI=3;//妹纸数据
+
     static {
         index2Type.put(1, GankType.TYPE_ANDROID);
         index2Type.put(2, GankType.TYPE_IOS);
@@ -24,6 +29,7 @@ public class GankType {
         index2Type.put(4, GankType.TYPE_APP);
         index2Type.put(5, GankType.TYPE_EXTRA);
         index2Type.put(6, GankType.TYPE_NOTHINGS);
+
     }
 
     public static final String GANK_PIC_400 = "?imageView2/0/w/400/format/jpg";

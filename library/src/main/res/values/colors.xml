@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="ResourceName">
-    <color name="colorPrimary" >#5b514f</color>
-    <color name="colorPrimaryDark">#5b514f</color>
-    <color name="colorAccent">#5b514f</color>
+    <color name="colorPrimary" >#432e2a</color>
+    <color name="colorPrimaryDark">#432e2a</color>
+    <color name="colorAccent">#d0537d</color>
 
     <color name="theme_primary">#432e2a</color>
     <color name="theme_primary_darker">#2d1e1b</color>
@@ -40,8 +40,8 @@
     <color name="text_2">#878787</color>
     <color name="text_3">#AAAAAA</color>
     <color name="text_4">#CFCFCF</color>
-    <color name="mainColor">#5b514f</color>
-    <color name="mainhalfColor">#805b514f</color>
+    <color name="mainColor">#432e2a</color>
+    <color name="mainhalfColor">#80432e2a</color>
     <color name="mainColor_press">#805b514f</color>
 
 

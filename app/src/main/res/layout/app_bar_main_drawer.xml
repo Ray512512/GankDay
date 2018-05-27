@@ -24,13 +24,24 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:titleEnabled="false">
 
+           <!-- <com.bigkoo.convenientbanner.ConvenientBanner
+                android:id="@+id/head_banner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:canLoop="true"
+                android:contentDescription="@string/app_name"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.6"
+            />-->
+
             <com.ray.library.view.view.banner.BannerLayout
                 android:id="@+id/head_banner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:indicatorMargin="40dp"
                 app:indicatorPosition="centerBottom"
-                app:indicatorShape="oval"
+                app:indicatorShape="empty"
                 app:indicatorSpace="3dp"
                 app:scrollDuration="800"
                 android:contentDescription="@string/app_name"
@@ -43,15 +54,7 @@
                 app:unSelectedIndicatorColor="@color/white"
                 app:unSelectedIndicatorHeight="8dp"
                 app:unSelectedIndicatorWidth="8dp" />
-           <!-- <ImageView
-                android:id="@+id/iv_main"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/app_name"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.6"/>-->
+
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar_main"

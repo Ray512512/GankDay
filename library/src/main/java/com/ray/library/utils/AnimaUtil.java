@@ -54,7 +54,7 @@ public class AnimaUtil {
         TranslateAnimation animation = new TranslateAnimation(
                 TranslateAnimation.RELATIVE_TO_SELF,0f,
                 TranslateAnimation.RELATIVE_TO_SELF,0f,
-                TranslateAnimation.RELATIVE_TO_SELF,-1f,
+                TranslateAnimation.RELATIVE_TO_SELF,1f,
                 TranslateAnimation.RELATIVE_TO_SELF,0f);
         animation.setDuration(500);
         animation.setFillAfter(false);

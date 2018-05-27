@@ -2,39 +2,40 @@ package com.ray.gank;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.ray.gank.bean.Gank;
 import com.ray.gank.bean.GankType;
+import com.ray.gank.greendao.MyDaoMaster;
 import com.ray.gank.mvp.presenter.MainPresenter;
 import com.ray.gank.mvp.view.MainIView;
 import com.ray.gank.ui.activity.MeiZhiActivity;
 import com.ray.gank.ui.activity.WebActivity;
 import com.ray.gank.ui.adapter.ViewPagerAdapter;
 import com.ray.gank.ui.fragment.GankDataFragment;
+import com.ray.gen.GankDao;
 import com.ray.library.base.ui.BaseActivity;
 import com.ray.library.rxbus.Event;
 import com.ray.library.utils.AppManager;
 import com.ray.library.view.view.banner.BannerLayout;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -127,6 +128,7 @@ public class MainDrawerActivity extends BaseActivity<MainPresenter> implements N
 
             }
         });
+
     }
     @Override
     protected void initEvents() {
@@ -171,25 +173,40 @@ public class MainDrawerActivity extends BaseActivity<MainPresenter> implements N
                 e.printStackTrace();
             }
         });
+        head_banner.setBannerListener(index -> {
+
+        });
     }
 
     @Override
     public void getLatelyData(ArrayList<Gank> gankData) {
+        setHeadData(gankData);
+    }
+
+    private void setHeadData(ArrayList<Gank> gankData){
         headImage=gankData;
         head_banner.setViewUrls(getImages(gankData));
     }
 
-    private ArrayList<String > getImages(ArrayList<Gank> gankData){
-        ArrayList<String>  r=new ArrayList<>();
+
+
+    private void deleteDb(){
+
+    }
+
+    private ArrayList<HashMap<String ,String >> getImages(ArrayList<Gank> gankData){
+        ArrayList<HashMap<String ,String >>  r=new ArrayList<>();
         for (Gank g:gankData) {
-            r.add(g.getImage());
+            HashMap <String ,String > h=new HashMap<>();
+            h.put(g.getDesc(),g.getImage());
+            r.add(h);
         }
         return r;
     }
 
     @Override
-    public void getDataError() {
-
+    public void getDataError(String msg) {
+        Snackbar.make(mViewPager, msg+"ヾ(￣▽￣)", Snackbar.LENGTH_SHORT).show();
     }
 
 

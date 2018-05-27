@@ -9,4 +9,8 @@
     <string name="action_refresh">刷新</string>
     <string name="action_copy_url">复制链接</string>
     <string name="action_open_url">打开链接</string>
+
+    <string name="fab_scrolling_behavior_fade">com.ray.gank.view.ScrollAwareFABBehavior</string>
+    <string name="fab_scrolling_behavior">com.ray.gank.view.ScrollingFABBehavior</string>
+
 </resources>

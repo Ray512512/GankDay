@@ -71,13 +71,7 @@ public class GankDataAdapter extends RecyclerArrayAdapter<Gank> {
                 } else {
                     mImageView.setImageResource(R.drawable.ic_image4);
                 }
-                mImageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ImageUtil.lookBigPic(getContext(),(ArrayList<String>) itemData.getImages(), 0);
-//                        getContext().startActivity(ImagePreviewActivity.newIntent(getContext(), (ArrayList<String>) itemData.getImages(), 0));
-                    }
-                });
+                mImageView.setOnClickListener(view -> ImageUtil.lookBigPic(getContext(),itemData.getImages(), 0));
             } else {
                 mImageView.setVisibility(View.GONE);
             }

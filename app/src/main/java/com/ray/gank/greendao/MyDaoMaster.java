@@ -1,4 +1,4 @@
-package com.ray.library.greendao;
+package com.ray.gank.greendao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -50,4 +50,5 @@ public class MyDaoMaster {
     public SQLiteDatabase getDb() {
         return db;
     }
+
 }

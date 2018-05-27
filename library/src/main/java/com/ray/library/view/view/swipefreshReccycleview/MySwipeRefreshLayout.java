@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 
+import com.ray.library.R;
 import com.ray.library.R2;
 
 import java.lang.reflect.Field;
@@ -35,7 +36,7 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
     }
 
     private void initView(Context context) {
-        setColorSchemeResources(R2.color.mainColor);
+        setColorSchemeResources(R.color.colorAccent);
         scaleTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
