@@ -10,6 +10,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
+import android.widget.TextView;
 
 import com.ray.library.R;
 import com.ray.library.utils.GlideUtils;
@@ -28,6 +30,8 @@ import com.ray.library.utils.SystemUtil;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -218,34 +222,17 @@ public class BannerLayout extends RelativeLayout {
     }
 
 
-    public void setCornerImg(ArrayList<Object> viewRes){
-        if(viewRes.size()==0)return;
-        List<View> views = new ArrayList<>();
-        itemCount = viewRes.size();
-        //主要是解决当item为小于3个的时候滑动有问题，这里将其拼凑成3个以上
-        if (itemCount < 1) {//当item个数0
-            throw new IllegalStateException("item count not equal zero");
-        } else if (itemCount < 2) {//当item个数为1
-            views.add(getContentView(viewRes.get(0), 0));
-            views.add(getContentView(viewRes.get(0), 0));
-            views.add(getContentView(viewRes.get(0), 0));
-        } else if (itemCount < 3) {//当item个数为2
-            views.add(getContentView(viewRes.get(0), 0));
-            views.add(getContentView(viewRes.get(1), 1));
-            views.add(getContentView(viewRes.get(0), 0));
-            views.add(getContentView(viewRes.get(1), 1));
-        } else {
-            for (int i = 0; i < viewRes.size(); i++) {
-                views.add(getContentView(viewRes.get(i), i));
-            }
-        }
-        setViews(views);
-    }
-
-    public View getContentView(Object res, final int position){
+    public View getContentView(HashMap<String ,String > res, final int position){
         View v= LayoutInflater.from(getContext()).inflate(R.layout.image_corner,null);
         ImageView imageView = (ImageView) v.findViewById(R.id.image);
-        GlideUtils.load(getContext(),res,imageView,R.mipmap.placeholder_big);
+        TextView text = (TextView) v.findViewById(R.id.banner_text);
+        for (String  key:res.keySet()){
+            if(!TextUtils.isEmpty(key)){
+                text.setText(key);
+                GlideUtils.load(getContext(),res.get(key),imageView,R.mipmap.placeholder_big);
+                break;
+            }
+        }
         imageView.setOnClickListener(v1 -> {
             if (onBannerItemClickListener != null) {
                 onBannerItemClickListener.onItemClick(position);
@@ -292,7 +279,30 @@ public class BannerLayout extends RelativeLayout {
             setViews(views);
     }
 
-
+    //添加网络图片路径 和标题
+    public void setViewUrls(ArrayList<HashMap<String ,String>> urls) {
+        List<View> views = new ArrayList<>();
+        itemCount = urls.size();
+        if(itemCount==0)return;
+        //主要是解决当item为小于3个的时候滑动有问题，这里将其拼凑成3个以上
+        if (itemCount < 1) {//当item个数0
+            throw new IllegalStateException("item count not equal zero");
+        } else if (itemCount < 2) { //当item个数为1
+            views.add(getContentView(urls.get(0), 0));
+            views.add(getContentView(urls.get(0), 0));
+            views.add(getContentView(urls.get(0), 0));
+        } else if (itemCount < 3) {//当item个数为2
+            views.add(getContentView(urls.get(0), 0));
+            views.add(getContentView(urls.get(1), 1));
+            views.add(getContentView(urls.get(0), 0));
+            views.add(getContentView(urls.get(1), 1));
+        } else {
+            for (int i = 0; i < urls.size(); i++) {
+                views.add(getContentView(urls.get(i), i));
+            }
+        }
+        setViews(views);
+    }
 
 
     @NonNull
