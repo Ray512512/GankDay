@@ -21,6 +21,7 @@ public class GankType {
     public static final int LOCAL_HEAD=1;//头部banner数据
     public static final int LOCAL_NEWEST=2;//最新数据
     public static final int LOCAL_MEIZHI=3;//妹纸数据
+    public static final int LOCAL_LIKE=4;//收藏数据
 
     static {
         index2Type.put(1, GankType.TYPE_ANDROID);

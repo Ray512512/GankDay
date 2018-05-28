@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -39,6 +40,9 @@ import android.widget.TextView;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.ray.gank.R;
+import com.ray.gank.bean.Gank;
+import com.ray.gank.bean.GankType;
+import com.ray.gank.greendao.GankDaoImp;
 import com.ray.gank.util.Androids;
 import com.ray.library.utils.T;
 
@@ -49,6 +53,7 @@ import butterknife.OnClick;
 
 public class WebActivity extends ToolbarActivity {
 
+    private static final String EXTRA_DATA = "extra_data";
     private static final String EXTRA_URL = "extra_url";
     private static final String EXTRA_TITLE = "extra_title";
 
@@ -63,6 +68,7 @@ public class WebActivity extends ToolbarActivity {
 
     private String mUrl, mTitle;
 
+    private Gank gank ;
 
     @Override
     protected int provideContentViewId() {
@@ -90,6 +96,13 @@ public class WebActivity extends ToolbarActivity {
         return intent;
     }
 
+    public static Intent newIntent(Context context, Gank gank) {
+        Intent intent = new Intent(context, WebActivity.class);
+        intent.putExtra(EXTRA_DATA, gank);
+        intent.putExtra(EXTRA_URL, gank.getUrl());
+        intent.putExtra(EXTRA_TITLE, gank.getDesc());
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +110,7 @@ public class WebActivity extends ToolbarActivity {
         ButterKnife.bind(this);
         mUrl = getIntent().getStringExtra(EXTRA_URL);
         mTitle = getIntent().getStringExtra(EXTRA_TITLE);
+        gank = (Gank) getIntent().getSerializableExtra(EXTRA_DATA);
 
         WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -209,6 +223,11 @@ public class WebActivity extends ToolbarActivity {
 
     @OnClick(R.id.fab_like)
     public void onViewClicked() {
+        if(gank!=null){
+            gank.setLocalType(GankType.LOCAL_LIKE);
+            GankDaoImp.insert(gank);
+            Snackbar.make(mWebView, "收藏成功"+"(〃'▽'〃)", Snackbar.LENGTH_SHORT).show();
+        }
     }
 
 

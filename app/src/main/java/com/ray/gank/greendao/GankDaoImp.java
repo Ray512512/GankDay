@@ -40,4 +40,9 @@ public class GankDaoImp{
             L.v(TAG,"插入数据："+id);
         }
     }
+
+    public static void insert(Gank gank){
+        long id = gankDao.insertOrReplace(gank);
+        L.v(TAG,"插入数据："+id);
+    }
 }

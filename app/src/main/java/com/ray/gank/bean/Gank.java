@@ -5,6 +5,7 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * Created by Ray on 2018/5/24.
  */
 @Entity
-public class Gank {
+public class Gank implements Serializable{
 
 
     /**
