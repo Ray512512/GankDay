@@ -53,6 +53,7 @@ dependencies {
     compile 'tyrant:heartlayout:1.0.1'
     compile 'com.jude:easyrecyclerview:4.3.4'
     compile 'com.daimajia.numberprogressbar:library:1.4@aar'
-//    compile 'org.greenrobot:greendao:3.2.2'
+//    compile 'com.github.maning0303:MNImageBrowser:V1.1.2'
+    compile project(':imagebrowserlibrary')
 
 }

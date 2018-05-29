@@ -167,7 +167,7 @@ public class MainDrawerActivity extends BaseActivity<MainPresenter> implements N
         mAppBarLayout.addOnOffsetChangedListener(mOnOffsetChangedListener);
         head_banner.setOnBannerItemClickListener(position -> {
             try {
-                Intent intent = WebActivity.newIntent(mContext, headImage.get(position).getUrl(), headImage.get(position).getDesc());
+                Intent intent = WebActivity.newIntent(mContext, headImage.get(position));
                 startActivity(intent);
             }catch (Exception e){
                 e.printStackTrace();

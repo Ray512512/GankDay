@@ -58,7 +58,7 @@ public class AlertDialogUtil {
     }
 
     public static  void  AlertDialog(Context context, String PositiveButton, String message, DialogInterface.OnClickListener listener){
-        getBuild(context,message)
+         getBuild(context,message)
         .setPositiveButton(PositiveButton, listener)
         .create().show();
     }

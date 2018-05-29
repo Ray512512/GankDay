@@ -44,6 +44,7 @@ import com.ray.gank.bean.Gank;
 import com.ray.gank.bean.GankType;
 import com.ray.gank.greendao.GankDaoImp;
 import com.ray.gank.util.Androids;
+import com.ray.gen.GankDao;
 import com.ray.library.utils.T;
 
 import butterknife.BindView;
@@ -224,6 +225,11 @@ public class WebActivity extends ToolbarActivity {
     @OnClick(R.id.fab_like)
     public void onViewClicked() {
         if(gank!=null){
+            Gank g=GankDaoImp.where(GankDao.Properties.LocalType.eq(GankType.LOCAL_LIKE),GankDao.Properties._id.eq(gank.get_id())).unique();
+            if(g!=null) {
+                Snackbar.make(mWebView, "已经收藏过了"+"(〃'▽'〃)", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
             gank.setLocalType(GankType.LOCAL_LIKE);
             GankDaoImp.insert(gank);
             Snackbar.make(mWebView, "收藏成功"+"(〃'▽'〃)", Snackbar.LENGTH_SHORT).show();

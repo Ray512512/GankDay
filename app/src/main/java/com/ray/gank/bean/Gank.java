@@ -16,7 +16,7 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 @Entity
 public class Gank implements Serializable{
-
+    static final long serialVersionUID = 1L;
 
     /**
      * _id : 5aff4645421aa95f55cab5e7

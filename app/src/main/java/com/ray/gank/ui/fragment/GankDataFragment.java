@@ -51,16 +51,14 @@ public class GankDataFragment extends BaseFragment<GankPresenter> implements Gan
     
     @Override
     public void getGankDataList(ArrayList<Gank> meiZhis) {
-            if(page==1){
-                mEasyRecyclerView.setRefreshing(false);
+        mEasyRecyclerView.setRefreshing(false);
+        if(page==1){
                 mBeanList.clear();
                 mGankDataAdapter.clear();
 
                 mBeanList.addAll(meiZhis);
                 mGankDataAdapter.addAll(mBeanList);
             }else {
-                mEasyRecyclerView.setRefreshing(false);
-
                 mBeanList.addAll(meiZhis);
                 mGankDataAdapter.addAll(meiZhis);
             }
@@ -104,7 +102,7 @@ public class GankDataFragment extends BaseFragment<GankPresenter> implements Gan
         mEasyRecyclerView.setAdapter(mGankDataAdapter);
         mGankDataAdapter.setOnItemClickListener(position -> {
             Gank dataBean = mBeanList.get(position);
-            Intent intent = WebActivity.newIntent(getContext(), dataBean.getUrl(), dataBean.getDesc());
+            Intent intent = WebActivity.newIntent(getContext(), dataBean);
             startActivity(intent);
         });
 
