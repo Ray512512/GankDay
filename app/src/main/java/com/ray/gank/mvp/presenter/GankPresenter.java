@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.ray.gank.api.Api;
 import com.ray.gank.bean.Gank;
 import com.ray.gank.bean.GankType;
+import com.ray.gank.common.Const;
 import com.ray.gank.greendao.GankDaoImp;
 import com.ray.gank.mvp.view.GankIView;
 import com.ray.gen.GankDao;
@@ -29,6 +30,17 @@ public class GankPresenter extends BasePresenter<GankIView> {
     }
 
     public void getData(String  type,int page){
+        if(type.equals(GankType.TYPE_GANK)){
+            localData = (ArrayList<Gank>) GankDaoImp.where(GankDao.Properties.LocalType.eq(GankType.LOCAL_LIKE),
+                    GankDao.Properties.Type.notEq(GankType.TYPE_MEIZHI))./*offset((page-1)* Const.meizhiSize).limit(Const.meizhiSize).*/list();
+            if (localData != null) {
+                L.v(TAG, type + "加载本地收藏干货\n" + new Gson().toJson(localData));
+                mView.getGankDataList(localData);
+            }else {
+                mView.showErrorView();
+            }
+            return;
+        }
         if(page==1) {
             localData = (ArrayList<Gank>) GankDaoImp.where(GankDao.Properties.LocalType.eq(GankType.LOCAL_NEWEST), GankDao.Properties.Type.eq(type)).list();
             if (localData != null && localData.size() != 0) {

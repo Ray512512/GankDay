@@ -13,5 +13,6 @@
     <color name="md_grey_900">#212121</color>
     <color name="md_grey_500">#9e9e9e</color>
     <color name="textThird">#9E9E9E</color>
-
+    <color name="colorYellow">#feef50</color>
+    <color name="colorWhite">#FFFFFF</color>
 </resources>

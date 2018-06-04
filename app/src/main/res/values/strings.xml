@@ -13,5 +13,7 @@
     <string name="fab_scrolling_behavior_fade">com.ray.gank.view.ScrollAwareFABBehavior</string>
     <string name="fab_scrolling_behavior">com.ray.gank.view.ScrollingFABBehavior</string>
     <string name="picture_has_save_to">图片已保存至 %s 文件夹</string>
+    <string name="share_meizhi_to">分享妹纸到...</string>
+    <string name="share_text">发现了一款非常美观的App「妹纸&amp;gank.io」，每天都有新的妹纸福利和程序猿干货，太赞了! 推荐~：https://github.com/Ray512512/GankDay</string>
 
 </resources>

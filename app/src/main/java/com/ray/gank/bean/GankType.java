@@ -14,6 +14,8 @@ public class GankType {
     public static final String TYPE_APP = "App";
     public static final String TYPE_EXTRA = "拓展资源";
     public static final String TYPE_NOTHINGS = "瞎推荐";
+    public static final String TYPE_GANK = "干货";
+    public static final String TYPE_MEIZHI = "福利";
 
     public static final String TYPE_FULI = "福利";
     public static final String TYPE_VIDEO = "休息视频";
@@ -30,6 +32,7 @@ public class GankType {
         index2Type.put(4, GankType.TYPE_APP);
         index2Type.put(5, GankType.TYPE_EXTRA);
         index2Type.put(6, GankType.TYPE_NOTHINGS);
+        index2Type.put(7, GankType.TYPE_GANK);
 
     }
 

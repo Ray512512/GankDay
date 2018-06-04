@@ -64,6 +64,9 @@ public abstract class BaseActivity<P extends BasePresenter>  extends AppCompatAc
      */
     protected abstract void initEvents();
 
+    public void addSubscription(Disposable p){
+        disposables2Destroy.add(p);
+    }
 
     @Override
     protected void onDestroy() {

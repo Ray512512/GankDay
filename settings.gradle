@@ -1,1 +1,1 @@
-include ':app', ':library', ':LayoutManagerGroup', ':imagebrowserlibrary'
+include ':app', ':library', ':LayoutManagerGroup'

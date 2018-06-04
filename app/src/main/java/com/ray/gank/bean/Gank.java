@@ -1,5 +1,7 @@
 package com.ray.gank.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
@@ -19,7 +21,7 @@ public class Gank implements Serializable{
     static final long serialVersionUID = 1L;
 
     /**
-     * _id : 5aff4645421aa95f55cab5e7
+     * serviceId : 5aff4645421aa95f55cab5e7
      * createdAt : 2018-05-15T00:00:00.0Z
      * desc : 2018-05-15
      * publishedAt : 2018-05-15T00:00:00.0Z
@@ -29,8 +31,11 @@ public class Gank implements Serializable{
      * used : true
      * who : lijinshanmx
      */
-    @Id
-    private String _id;
+    @Id(autoincrement = true)
+    private Long dbId;
+    @Property
+    @SerializedName("_id")
+    private String serviceId;
     @Property
     public Date createdAt;
     @Property
@@ -58,12 +63,15 @@ public class Gank implements Serializable{
     @Property
     private boolean isLike;
 
-    @Generated(hash = 213065472)
-    public Gank(String _id, Date createdAt, String desc, String vedioStr,
-            Date publishedAt, String source, String type, String url, boolean used,
-            String who, List<String> images, String image, int localType,
-            boolean isLike) {
-        this._id = _id;
+
+
+    @Generated(hash = 1701851159)
+    public Gank(Long dbId, String serviceId, Date createdAt, String desc,
+            String vedioStr, Date publishedAt, String source, String type,
+            String url, boolean used, String who, List<String> images, String image,
+            int localType, boolean isLike) {
+        this.dbId = dbId;
+        this.serviceId = serviceId;
         this.createdAt = createdAt;
         this.desc = desc;
         this.vedioStr = vedioStr;
@@ -82,6 +90,8 @@ public class Gank implements Serializable{
     @Generated(hash = 116302247)
     public Gank() {
     }
+
+  
 
     public String getImage() {
         return image;
@@ -126,12 +136,12 @@ public class Gank implements Serializable{
         this.vedioStr = vedioStr;
     }
 
-    public String get_id() {
-        return _id;
+    public String getServiceId() {
+        return serviceId;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
     }
 
 
@@ -202,5 +212,14 @@ public class Gank implements Serializable{
 
     public void setIsLike(boolean isLike) {
         this.isLike = isLike;
+    }
+
+
+    public Long getDbId() {
+        return this.dbId;
+    }
+
+    public void setDbId(Long dbId) {
+        this.dbId = dbId;
     }
 }

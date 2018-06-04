@@ -34,6 +34,11 @@ public class GankDaoImp{
         }
     }
 
+    public static void delete(Gank gank){
+        if(gank==null)return;
+        gankDao.delete(gank);
+    }
+
     public static void insert(ArrayList<Gank> Datas){
         for (Gank s : Datas) {
           long id = gankDao.insertOrReplace(s);

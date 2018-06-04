@@ -7,5 +7,4 @@ package com.ray.gank.common;
 public class Const {
     public static final String DB_NAME = "gank.db";
     public static final int meizhiSize = 10;
-    public static final int gankSize = 5;
 }

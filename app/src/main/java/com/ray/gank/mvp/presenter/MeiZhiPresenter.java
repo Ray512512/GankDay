@@ -7,6 +7,7 @@ import com.ray.gank.api.Api;
 import com.ray.gank.bean.Gank;
 import com.ray.gank.bean.GankType;
 import com.ray.gank.bean.VedioData;
+import com.ray.gank.common.Const;
 import com.ray.gank.greendao.GankDaoImp;
 import com.ray.gank.mvp.view.MeiZhiIView;
 import com.ray.gank.util.DataUtils;
@@ -36,6 +37,17 @@ public class MeiZhiPresenter extends BasePresenter<MeiZhiIView>{
     }
 
 
+    public void getLocalMeiZhi(int page){
+        localData = (ArrayList<Gank>) GankDaoImp.where(GankDao.Properties.LocalType.eq(GankType.LOCAL_LIKE),
+                GankDao.Properties.Type.eq(GankType.TYPE_MEIZHI),GankDao.Properties.IsLike.eq(true))./*offset((page-1)* Const.meizhiSize).limit(Const.meizhiSize).*/list();
+        if (localData != null ) {
+            L.v(TAG, "加载本地妹纸\n" + new Gson().toJson(localData));
+            mView.getMeiZhiDataList(localData);
+        }else {
+            mView.showErrorView();
+        }
+    }
+
     public void getMeizhiAndVedioData(int page){
         if(page==1) {
             localData = (ArrayList<Gank>) GankDaoImp.where(GankDao.Properties.LocalType.eq(GankType.LOCAL_MEIZHI)).list();
@@ -52,7 +64,10 @@ public class MeiZhiPresenter extends BasePresenter<MeiZhiIView>{
                     mView.getMeiZhiDataList(arrayListBaseModel);
                     if(page==1)
                     saveDataToDb(arrayListBaseModel);
-                }, throwable -> L.v(TAG,throwable.toString()));
+                }, throwable -> {
+                    mView.showErrorView();
+                    L.v(TAG, throwable.toString());
+                });
     }
 
     /**

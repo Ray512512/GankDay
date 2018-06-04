@@ -24,6 +24,7 @@ import com.ray.gank.bean.GankType;
 import com.ray.gank.greendao.MyDaoMaster;
 import com.ray.gank.mvp.presenter.MainPresenter;
 import com.ray.gank.mvp.view.MainIView;
+import com.ray.gank.ui.activity.LikeActivity;
 import com.ray.gank.ui.activity.MeiZhiActivity;
 import com.ray.gank.ui.activity.WebActivity;
 import com.ray.gank.ui.adapter.ViewPagerAdapter;
@@ -222,13 +223,13 @@ public class MainDrawerActivity extends BaseActivity<MainPresenter> implements N
         int navId = item.getItemId();
         if (navId == R.id.nav_mz) {
             AppManager.start(this,MeiZhiActivity.class);
-        }/*else if (navId == R.id.nav_local_collect) {
-            intent2(CollectActivity.class);
+        }else if (navId == R.id.nav_local_collect) {
+            AppManager.start(mContext, LikeActivity.class);
         } else if (navId == R.id.nav_clear) {
-            clearLocalCache();
+            //todo
         } else if (navId == R.id.nav_about) {
-            intent2(AboutActivity.class);
-        }*/
+            //todo
+        }
         item.setCheckable(false);
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;

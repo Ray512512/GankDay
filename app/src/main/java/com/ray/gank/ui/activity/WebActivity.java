@@ -139,6 +139,7 @@ public class WebActivity extends ToolbarActivity {
     }
 
 
+
     @Override
     public void setTitle(CharSequence title) {
         super.setTitle(title);
@@ -225,7 +226,7 @@ public class WebActivity extends ToolbarActivity {
     @OnClick(R.id.fab_like)
     public void onViewClicked() {
         if(gank!=null){
-            Gank g=GankDaoImp.where(GankDao.Properties.LocalType.eq(GankType.LOCAL_LIKE),GankDao.Properties._id.eq(gank.get_id())).unique();
+            Gank g=GankDaoImp.where(GankDao.Properties.LocalType.eq(GankType.LOCAL_LIKE),GankDao.Properties.ServiceId.eq(gank.getServiceId())).unique();
             if(g!=null) {
                 Snackbar.make(mWebView, "已经收藏过了"+"(〃'▽'〃)", Snackbar.LENGTH_SHORT).show();
                 return;

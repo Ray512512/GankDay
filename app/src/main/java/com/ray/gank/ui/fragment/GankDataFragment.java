@@ -2,6 +2,7 @@ package com.ray.gank.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -62,6 +63,13 @@ public class GankDataFragment extends BaseFragment<GankPresenter> implements Gan
                 mBeanList.addAll(meiZhis);
                 mGankDataAdapter.addAll(meiZhis);
             }
+            if(mBeanList.size()==0)showErrorView();
+    }
+
+    @Override
+    public void showErrorView() {
+        mEasyRecyclerView.setRefreshing(false);
+        Snackbar.make(mEasyRecyclerView, page==1?"本地还没有干货哦"+"ヾ(￣▽￣)":"已加载本地所有干货"+"(*╹▽╹*)", Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -106,7 +114,8 @@ public class GankDataFragment extends BaseFragment<GankPresenter> implements Gan
             startActivity(intent);
         });
 
-        mGankDataAdapter.setMore(R.layout.layout_load_more, new RecyclerArrayAdapter.OnMoreListener() {
+        if(index==7)return;
+            mGankDataAdapter.setMore(R.layout.layout_load_more, new RecyclerArrayAdapter.OnMoreListener() {
             @Override
             public void onMoreShow() {
                 mPresenter.getData(GankType.index2Type.get(index),++page);

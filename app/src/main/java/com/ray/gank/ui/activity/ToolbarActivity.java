@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.animation.DecelerateInterpolator;
 
 import com.ray.gank.R;
+import com.ray.library.base.ui.BaseActivity;
 
 
 public abstract class ToolbarActivity extends AppCompatActivity {
@@ -37,7 +38,28 @@ public abstract class ToolbarActivity extends AppCompatActivity {
 
     public void onToolbarClick() {}
 
+/*
 
+    @Override
+    protected int inflateContentView() {
+        return provideContentViewId();
+    }
+
+    @Override
+    protected void initPresenter() {
+
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected void initEvents() {
+
+    }
+*/
     protected AppBarLayout mAppBar;
     protected Toolbar mToolbar;
     protected boolean mIsHidden = false;

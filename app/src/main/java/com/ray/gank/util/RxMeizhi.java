@@ -25,6 +25,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 
+import com.ray.gank.R;
+import com.ray.library.utils.T;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -33,6 +35,8 @@ import java.io.IOException;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
@@ -40,6 +44,20 @@ import rx.schedulers.Schedulers;
  * Created by drakeet on 8/10/15.
  */
 public class RxMeizhi {
+
+    public static void saveImageToGallery(Context context,String mImageUrl) {
+        // @formatter:off
+        String mImageTitle=mImageUrl.substring(mImageUrl.lastIndexOf("/")+1,mImageUrl.lastIndexOf("."));
+        Subscription s = RxMeizhi.saveImageAndGetPathObservable(context, mImageUrl, mImageTitle)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(uri -> {
+                    File appDir = new File(Environment.getExternalStorageDirectory(), "Meizhi");
+                    String msg = String.format(context.getString(R.string.picture_has_save_to), appDir.getAbsolutePath());
+                    T.show(msg);
+                }, error -> T.show(error.getMessage() + "\n再试试..."));
+        // @formatter:on
+//        addSubscription(s);
+    }
 
     public static Observable<Uri> saveImageAndGetPathObservable(Context context, String url, String title) {
         return Observable.create(new Observable.OnSubscribe<Bitmap>() {

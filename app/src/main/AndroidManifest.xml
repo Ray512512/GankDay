@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.SplashActivity"
+        <activity
+            android:name=".ui.activity.SplashActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,18 +21,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.MeiZhiActivity"
+        <activity
+            android:name=".ui.activity.MeiZhiActivity"
             android:launchMode="singleTask"
-            android:theme="@style/MeizhiTheme"/>
-        <activity android:name=".ui.activity.WebActivity"
+            android:theme="@style/MeizhiTheme" />
+        <activity
+            android:name=".ui.activity.WebActivity"
             android:launchMode="singleTask"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name="com.ray.library.view.view.photoview.ImageGalleryActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".MainDrawerActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.maning.imagebrowserlibrary.MNImageBrowserActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="sensor"
+            android:theme="@style/ImageBrowserTheme" />
+        <activity android:name=".ui.activity.LikeActivity"
             android:theme="@style/AppTheme2"/>
-        <activity android:name="com.ray.library.view.view.photoview.ImageGalleryActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme2"/>
-
-        <activity android:name=".MainDrawerActivity"
-            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

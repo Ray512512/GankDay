@@ -3,9 +3,9 @@ package com.ray.gank.ui.activity;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -73,18 +73,13 @@ public class MeiZhiActivity extends BaseActivity<MeiZhiPresenter> implements Mei
                 tv_name.setText(item.getDesc());
                 tv_content.setText(item.getVedioStr());
 
-                img.setOnClickListener(v -> LookBigPicManager.getInstance().lookBigPic(mContext,mAdapter.getItemCount()-1-baseViewHolder.getItemPosition(),imgList,img,
+                img.setOnClickListener(v -> LookBigPicManager.getInstance().lookBigPic(mContext,mAdapter.getItemCount()-1-baseViewHolder.getItemPosition(), dataList,img,
                         new ViewPager.SimpleOnPageChangeListener(){
                             @Override
                             public void onPageSelected(int position) {
                                 scrollTo(position);
                             }
                         }));
-               /* HeartLayout mHeartLayout = getView(baseViewHolder, R.id.layout);
-                mHeartLayout.setOnTouchListener((v, event) -> {
-                    mHeartLayout.post(() -> mHeartLayout.addHeart(randomColor()));
-                    return false;
-                });*/
             }
 
             @Override
@@ -106,15 +101,22 @@ public class MeiZhiActivity extends BaseActivity<MeiZhiPresenter> implements Mei
         meizhi_swiperefresh.setRefreshing(false);
         if(page==2){ //第一次获取数据
             mAdapter.clearData();
-            imgList.clear();
+            dataList.clear();
         }
-        setImgList(meiZhis);
+        setGankList(meiZhis);
         if(mAdapter.getDataList().size()!=0){
             mAdapter.addDataItems(0,meiZhis);
         }else {
             mAdapter.addDataItems(meiZhis);
         }
         mRecyclerView.scrollBy(0,mLayoutManager.getVerticalSpace()*8);
+    }
+
+    @Override
+    public void showErrorView() {
+        page--;
+        meizhi_swiperefresh.setRefreshing(false);
+        Snackbar.make(mRecyclerView, "搜索妹纸失败"+"ヾ(￣▽￣)", Snackbar.LENGTH_SHORT).show();
     }
 
     private void scrollOnePage(){
@@ -135,14 +137,14 @@ public class MeiZhiActivity extends BaseActivity<MeiZhiPresenter> implements Mei
         lastPage=page;
     }
 
-    private ArrayList<String > imgList=new ArrayList<>();
-    private void setImgList(ArrayList<Gank> meiZhis){
-        ArrayList<String > list=new ArrayList<>(meiZhis.size());
+    private ArrayList<Gank > dataList =new ArrayList<>();
+    private void setGankList(ArrayList<Gank> meiZhis){
+        ArrayList<Gank > list=new ArrayList<>(meiZhis.size());
         for (Gank g : meiZhis) {
-            list.add(g.getUrl());
+            list.add(g);
         }
         Collections.reverse(list);
-        imgList.addAll(list);
+        dataList.addAll(list);
     }
 
     private int randomColor() {

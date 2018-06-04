@@ -1,0 +1,29 @@
+
+<android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/easy_rv_meizhi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/main_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:clickable="true"
+        android:elevation="4dp"
+        app:elevation="4dp"
+        app:layout_anchor="@id/easy_rv_meizhi"
+        app:borderWidth="0dp"
+        android:layout_margin="16dp"
+        app:layout_anchorGravity="right|bottom"
+        app:layout_behavior="@string/fab_scrolling_behavior_fade"
+        android:src="@drawable/ic_go_top"/>
+
+</android.support.design.widget.CoordinatorLayout>

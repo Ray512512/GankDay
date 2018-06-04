@@ -1,8 +1,6 @@
 package com.ray.gank.widget;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Environment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -13,9 +11,9 @@ import com.maning.imagebrowserlibrary.ImageEngine;
 import com.maning.imagebrowserlibrary.MNImageBrowser;
 import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
 import com.ray.gank.R;
+import com.ray.gank.bean.Gank;
 import com.ray.gank.util.RxMeizhi;
 import com.ray.library.utils.AlertDialogUtil;
-import com.ray.library.utils.L;
 import com.ray.library.utils.T;
 
 import java.io.File;
@@ -61,29 +59,24 @@ public class LookBigPicManager {
                 .setOnLongClickListener((activity, imageView, position12, url) -> {
                     //长按监听
                     AlertDialogUtil.AlertDialog(activity, "保存到手机？", "确定","取消", (dialog, which) ->
-                            saveImageToGallery(activity,url));
+                            RxMeizhi.saveImageToGallery(activity,url));
                 })
                 .setOnPageChangeListener(onPageChangeListener);
     }
-    public void lookBigPic(Context context, int position, ArrayList<String> sourceImageList, View view,ViewPager.SimpleOnPageChangeListener listener){
+    public void lookBigPic(Context context, int position, ArrayList<Gank> gankData, View view, ViewPager.SimpleOnPageChangeListener listener){
         MNImageBrowser imageBrowser=init(context,position,listener);
-        imageBrowser.setImageList(sourceImageList).show(view);
+        imageBrowser.setImageList(getImgs(gankData)).setGankData(gankData).show(view);
     }
 
-    private void saveImageToGallery(Context context,String mImageUrl) {
-        // @formatter:off
-        String mImageTitle=mImageUrl.substring(mImageUrl.lastIndexOf("/")+1,mImageUrl.lastIndexOf("."));
-        Subscription s = RxMeizhi.saveImageAndGetPathObservable(context, mImageUrl, mImageTitle)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(uri -> {
-                    File appDir = new File(Environment.getExternalStorageDirectory(), "Meizhi");
-                    String msg = String.format(context.getString(R.string.picture_has_save_to),
-                            appDir.getAbsolutePath());
-                    T.show(msg);
-                }, error -> T.show(error.getMessage() + "\n再试试..."));
-        // @formatter:on
-//        addSubscription(s);
+    private ArrayList<String > getImgs(ArrayList<Gank> ganks){
+        ArrayList<String > r=new ArrayList<>(ganks.size());
+        for (Gank g : ganks) {
+            r.add(g.getUrl());
+        }
+        return r;
     }
+
+
 
   /*  public void lookBigPic(Context context, int position, String imgUrl, View view){
         MNImageBrowser imageBrowser=init(context,position);
